@@ -10,8 +10,8 @@ import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
     private ImageView ball;
-    private ObjectAnimator animator1, animator2, animator3, animator4, animator5;
-    private View container;
+    private ObjectAnimator animator1, animator2, animator3, animator4, animator5, animator6, animator7;
+    private View container, drawer;
     private int h, w;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ball = (ImageView)findViewById(R.id.img);
         container = findViewById(R.id.view);
+        drawer = findViewById(R.id.drawer);
+        drawer.setX(-200f);
     }
     private void animatorSet() {
         animator1 = ObjectAnimator.ofFloat(ball, "x", 0, w);
@@ -34,18 +36,23 @@ public class MainActivity extends AppCompatActivity {
     }
     public void test2(View v) {
         AnimatorSet set = new AnimatorSet();
-        set.playSequentially(animator1,animator2);
+        set.playSequentially(animator1,animator2,animator3,animator4,animator5);
         set.setDuration(3*1000);
         set.start();
     }
     public void test3(View v) {
         AnimatorSet set = new AnimatorSet();
-        set.playTogether(animator1,animator2);
+        set.playTogether(animator1,animator2,animator3,animator4,animator5);
         set.setDuration(3*1000);
         set.start();
     }
     public void test4(View v) {
-
+        animator6 = ObjectAnimator.ofFloat(drawer, "x", -200, 0);
+        animator7 = ObjectAnimator.ofFloat(drawer, "alpha", 0, 0.7f,1f);
+        AnimatorSet set = new AnimatorSet();
+        set.playTogether(animator6, animator7);
+        set.setDuration(1000);
+        set.start();
     }
     @Override
     protected void onStart() {
